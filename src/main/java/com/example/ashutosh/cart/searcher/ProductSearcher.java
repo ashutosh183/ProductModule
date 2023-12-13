@@ -5,6 +5,7 @@ import com.example.ashutosh.cart.repo.ProductStore;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -25,12 +26,27 @@ public class ProductSearcher implements Searcher{
 
     @Override
     public List<Product> searchByName(String name) {
-        return null;
+        List<Product> foundProducts = new ArrayList<>();
+        HashMap<Integer, Product> products = productStore.getProducts();
+        for(Map.Entry<Integer, Product> product: products.entrySet()){
+            System.out.println("Product name --> "+product.getValue().getName());
+            if(product.getValue().getName().equals(name)){
+                foundProducts.add(product.getValue());
+            }
+        }
+        return foundProducts;
     }
 
     @Override
     public List<Product> searchByBrand(String brand) {
-        return null;
+        List<Product> foundProducts = new ArrayList<>();
+        HashMap<Integer, Product> products = productStore.getProducts();
+        for(Map.Entry<Integer, Product> product: products.entrySet()){
+            if(product.getValue().getBrand().equalsIgnoreCase(brand)){
+                foundProducts.add(product.getValue());
+            }
+        }
+        return foundProducts;
     }
 
     @Override
